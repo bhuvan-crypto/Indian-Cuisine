@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Redirecting...</title>
+  <head><meta charset="utf-8"><title>Loading...</title>
     <script>
-      // Redirect all 404 requests back to index.html
-      (function () {
-        var redirect = sessionStorage.redirect;
-        delete sessionStorage.redirect;
+      (function() {
+        const redirect = sessionStorage.getItem('redirect');
+        sessionStorage.removeItem('redirect');
         if (redirect && redirect !== location.href) {
           history.replaceState(null, null, redirect);
         }
@@ -16,10 +13,8 @@
   </head>
   <body>
     <script>
-      // Save the current location
-      sessionStorage.redirect = location.href;
-      // Redirect to the app’s index.html
-      location.replace("/Indian-Cuisine/");
+      sessionStorage.setItem('redirect', location.pathname + location.search);
+      location.replace('/Indian-Cuisine/');
     </script>
   </body>
 </html>
