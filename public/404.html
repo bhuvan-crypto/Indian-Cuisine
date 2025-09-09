@@ -4,22 +4,11 @@
     <meta charset="utf-8" />
     <title>Redirecting...</title>
     <script>
-      // Redirect all 404 requests back to index.html
-      (function () {
-        var redirect = sessionStorage.redirect;
-        delete sessionStorage.redirect;
-        if (redirect && redirect !== location.href) {
-          history.replaceState(null, null, redirect);
-        }
-      })();
+      // Save the current path and query
+      sessionStorage.setItem("redirect", window.location.pathname + window.location.search);
+      // Redirect to index.html inside /Indian-Cuisine/
+      window.location.replace("/Indian-Cuisine/");
     </script>
   </head>
-  <body>
-    <script>
-      // Save the current location
-      sessionStorage.redirect = location.href;
-      // Redirect to the app’s index.html
-      location.replace("/Indian-Cuisine/");
-    </script>
-  </body>
+  <body></body>
 </html>

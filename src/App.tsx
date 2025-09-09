@@ -8,7 +8,7 @@ import { FluentProvider, webLightTheme } from '@fluentui/react-components';
 const App = () => {
   return (
     <FluentProvider theme={webLightTheme}>
-      <Router basename="/Indian-Cuisine">
+      <Router >
         <div className="h-screen bg-gray-50 flex flex-col">
           <Header />
           <main className="py-6 overflow-auto flex-grow">
