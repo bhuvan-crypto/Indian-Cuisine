@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { dishes } from '../dishes';
+import { useCallback, useMemo, useState } from "react";
+import { dishes ,headers,IDish} from '../dishes';
 import Dropdown from "../ui/DropDown";
 import SearchBox from "../ui/SearchBox";
 
@@ -7,7 +7,7 @@ const PAGE_SIZE = 20;
 
 const DishesList = () => {
   const [page, setPage] = useState(1);
-  const [sortCol, setSortCol] = useState('name');
+  const [sortCol, setSortCol] = useState('name' as keyof IDish);
   const [sortDesc, setSortDesc] = useState(false);
   const [diet, setDiet] = useState('');
   const [flavor, setFlavor] = useState('');
@@ -40,14 +40,14 @@ const DishesList = () => {
     return sorted.slice(start, start + PAGE_SIZE);
   }, [sorted, page]);
 
-  const handleSort = (col) => {
+  const handleSort = useCallback((col: keyof IDish) => {
     if (col === sortCol) {
       setSortDesc(!sortDesc);
     } else {
       setSortCol(col);
       setSortDesc(false);
     }
-  };
+  }, [sortCol, sortDesc]);
 
   return (
     <div className="p-6 h-full flex flex-col w-full">
@@ -69,7 +69,7 @@ const DishesList = () => {
         <table className="min-w-full bg-white border border-gray-200 rounded shadow">
           <thead className="sticky top-0 bg-gray-100">
             <tr>
-             { [{name:"Name", key:"name"},{name:"Diet", key:"diet"},{name:"Course", key:"course"},{name:"Cook Time", key:"cook_time"},{name:"Flavor", key:"flavor_profile"},{name:"State", key:"state"},{name:"Region", key:"region"}].map(col => (
+             { headers.map(col => (
                 <th
                   key={col.key}
                   className="p-2 cursor-pointer text-left"

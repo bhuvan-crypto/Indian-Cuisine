@@ -1,12 +1,12 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { dishes, Dish } from "../dishes";
+import { dishes, IDish } from "../dishes";
 
 const DishDetails = () => {
   const { id } = useParams();
   // Since JSON data has no id, use name as unique param (or index)
   // Try to find by index if id is a number, else by name
-  let dish: Dish | undefined;
+  let dish: IDish | undefined;
   if (id) {
     const idx = Number(id);
     if (!isNaN(idx)) {

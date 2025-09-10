@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { dishes } from "../dishes";
 
@@ -9,7 +9,8 @@ const Header = () => {
   const navigate = useNavigate();
 
   // Find dishes matching name, ingredients, or origin (state/region)
-  const suggestions = query.length === 0 ? [] : dishes.filter(dish => {
+  const suggestions = useMemo(() => {
+     return query.length === 0 ? [] : dishes.filter(dish => {
     const q = query.toLowerCase();
     return (
       dish.name.toLowerCase().includes(q) ||
@@ -17,7 +18,7 @@ const Header = () => {
       (dish.state && dish.state.toLowerCase().includes(q)) ||
       (dish.region && dish.region.toLowerCase().includes(q))
     );
-  }).slice(0, 8);
+  }).slice(0, 8)}, [query]);
 
   return (
     <header className="bg-gray-100 px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between shadow relative z-10">
